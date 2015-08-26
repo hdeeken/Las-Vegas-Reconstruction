@@ -54,10 +54,10 @@ struct CoordinateTransform
 	// Position of the x coordinate in the input data
 	int	  x;
 
-	// Position of the x coordinate in the input data
+	// Position of the y coordinate in the input data
 	int   y;
 
-	// Position of the x coordinate in the input data
+	// Position of the z coordinate in the input data
 	int   z;
 
 	// True, if conversion is necessary

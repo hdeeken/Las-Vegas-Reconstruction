@@ -122,9 +122,8 @@ void Tesselator<VertexT, NormalT>::tesselatorAddVertex(const GLvoid *data, Verte
     m_vertices.push_back(newVertex);
 }
 
-
 template<typename VertexT, typename NormalT>
-void Tesselator<VertexT, NormalT>::getFinalizedTriangles(vector<float> &vertexBuffer, vector<unsigned int> &indexBuffer, vector<vector<VertexT> > &vectorBorderPoints)
+void Tesselator<VertexT, NormalT>::tesselateAndGetFinalizedTriangles( vector<vector<VertexT> > &vectorBorderPoints, vector<float> &vertexBuffer, vector<unsigned int> &indexBuffer)
 {
     // initialize tesselator. make sure data structures are empty.
     init();
@@ -154,7 +153,39 @@ void Tesselator<VertexT, NormalT>::getFinalizedTriangles(vector<float> &vertexBu
         }
         indexBuffer.push_back( pos );
     }
+    clear();
 }
+
+template<typename VertexT, typename NormalT>
+void Tesselator<VertexT, NormalT>::getFinalizedTriangles(vector<float> &vertexBuffer, vector<unsigned int> &indexBuffer)
+{
+    indexBuffer.clear();
+    vertexBuffer.clear();
+    
+    // keep track of already used vertices to avoid doubled or tripled vertices
+    map<Vertex<float>, unsigned int> vertexMap;
+    size_t pos;
+
+    // iterate over all new triangles:
+    typename std::vector<Vertex<float> >::iterator triangles=m_triangles.begin();
+    typename std::vector<Vertex<float> >::iterator trianglesEnd=m_triangles.end();
+
+    // add all triangles and so faces to our buffers and keep track of all used parameters
+    for(; triangles != trianglesEnd; ++triangles)
+    {
+        if( vertexMap.find(*triangles) != vertexMap.end() ) {
+           pos = vertexMap[*triangles];
+        } else { 
+            pos = vertexBuffer.size() / 3;
+            vertexBuffer.push_back((*triangles)[0]);
+            vertexBuffer.push_back((*triangles)[1]);
+            vertexBuffer.push_back((*triangles)[2]);
+            vertexMap.insert( pair<Vertex<float>, unsigned int>( *triangles, pos ) );
+        }
+        indexBuffer.push_back( pos );
+    }
+}
+
 
 
 template<typename VertexT, typename NormalT>
@@ -210,7 +241,6 @@ void Tesselator<VertexT, NormalT>::init(void)
     gluTessCallback(m_tesselator, GLU_TESS_END, (GLvoid(*) ()) &tesselatorEnd);
     gluTessCallback(m_tesselator, GLU_TESS_COMBINE_DATA, (GLvoid(*) ()) &tesselatorCombineVertices);
     gluTessCallback(m_tesselator, GLU_TESS_ERROR, (GLvoid(*) ()) &tesselatorError);
-
 
     /* set Properties for tesselation */
     //gluTessProperty(m_tesselator, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_POSITIVE);
@@ -284,13 +314,6 @@ void Tesselator<VertexT, NormalT>::tesselate(vector<vector<VertexT> > &vectorBor
     }
 
     return;
-}
-
-
-template<typename VertexT, typename NormalT>
-void Tesselator<VertexT, NormalT>::tesselate(Region<VertexT, NormalT> *region)
-{
-    tesselate(region->getContours(0.01));
 }
 
 } /* namespace lvr */

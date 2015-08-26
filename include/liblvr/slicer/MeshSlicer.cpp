@@ -274,8 +274,7 @@ void MeshSlicer::computeProjections(vector<Segment>& segments)
 				cout << "error in computeIntersections" << endl;
 			}
 		}
-		
-		
+
 		// computes all intersections with segment query (as pairs object - primitive_id)
 		std::list<Object_and_primitive_id> intersections;
 

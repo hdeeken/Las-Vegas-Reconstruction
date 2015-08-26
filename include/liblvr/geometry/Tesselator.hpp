@@ -48,8 +48,6 @@ using namespace std;
 namespace lvr
 {
 
-
-
 /**
  * @brief Tesselation class.
  *
@@ -75,7 +73,8 @@ public:
     static void init(void);
 
     /**
-     * @brief Takes a list of contours and retesselates the area.
+     * @brief Takes a list of contours, tesselates these and stores the results.
+     *        To access the result 
      *
      * @param borderVertices A vector of vectors containing the contours.
      *                       The first stack is handled as the outer contour,
@@ -85,30 +84,18 @@ public:
      *         
      */
     static void tesselate(vector<vector<VertexT> > &borderVertices);
-    
-    /**
-     * @brief Takes a list of contours and retesselates the area.
-     *
-     * @param region An object of the Region class. 
-     *               This represents the region which should be retesselated
-     *         
-     */
-    static void tesselate(Region<VertexT, NormalT> *region);
 
     /**
-     * @brief blabla
+     * @brief creates 
      *
-     * @param vertices a float array containing all vertices.
-     * @param vLength  the length of the vertice array. /3 == numberVertices
-     * @param faces    list of faces. this is just an indexlist pointing to the vertices array.
-     *                 for face i: vertices[i+0] == first vertex for this face.
-     *                             vertices[i+1] == second ....
-     *                             vertices[i+2] == third...
-     *
+     * @param vectorBorderPoints a list of contours to be tesselated
+     * @param vertexBuffer vertex buffer of the tesselated mesh
+     * @param indexBuffer  index buffer of the tesselated mesh
      *
      */
-    static void getFinalizedTriangles(vector<float> &vertexBuffer, vector<unsigned int> &indexBuffer, vector<vector<VertexT> > &vectorBorderPoints);
+    static void getFinalizedTriangles(vector<float> &vertexBuffer, vector<unsigned int> &indexBuffer);
 
+    static void tesselateAndGetFinalizedTriangles(vector<vector<VertexT> > &vectorBorderPoints, vector<float> &vertexBuffer, vector<unsigned int> &indexBuffer);
 
 private:
     

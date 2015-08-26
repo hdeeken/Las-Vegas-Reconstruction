@@ -16,7 +16,6 @@
  * Place - Suite 330, Boston, MA  02111-1307, USA
  */
 
-
  /**
  *
  * @file      MeshLoader.hpp
@@ -24,7 +23,7 @@
  * @details   The MeshLoader class specifies the storage and access to all
  *            available mesh data by implementing the get and set methods for
  *            these data.
- * 
+ *
  * @author    Lars Kiesow (lkiesow), lkiesow@uos.de, Universität Osnabrück
  * @author    Thomas Wiemann, twiemann@uos.de, Universität Osnabrück
  *
@@ -45,8 +44,6 @@
 
 namespace lvr
 {
-
-
 
 /**
  * \class MeshLoader MeshLoader.hpp "io/MeshLoader.hpp"
@@ -169,23 +166,20 @@ class MeshBuffer
 
         floatArr getVertexTextureCoordinateArray( size_t &n );
 
-		labeledFacesMap getLabeledFacesMap();
+        labeledFacesMap getLabeledFacesMap();
 
         materialArr getMaterialArray(size_t &n);
 
-        uintArr	getFaceMaterialIndexArray(size_t &n);
+        uintArr getFaceMaterialIndexArray(size_t &n);
 
         textureArr getTextureArray(size_t &n);
 
-		size_t getNumLabels();
-
+        size_t getNumLabels();
 
 #define SECTION_INDEXED_GETTER
         /**********************************************************************
          * INDEXED GETTER
          *********************************************************************/
-
-
 
         /**
          * \brief Get indexed vertex array.
@@ -363,8 +357,7 @@ class MeshBuffer
 
         void setVertexTextureCoordinateArray( floatArr array, size_t n );
 
-
-		void setLabeledFacesMap( labeledFacesMap map );
+        void setLabeledFacesMap( labeledFacesMap map );
 
         void setMaterialArray( materialArr array, size_t n );
 
@@ -377,8 +370,6 @@ class MeshBuffer
         /**********************************************************************
          * VECTOR SETTER
          *********************************************************************/
-
-
 
         /**
          * \brief Set the vertex array.
@@ -396,7 +387,7 @@ class MeshBuffer
          * \brief Set the vertex confidence array.
          *
          * By using setVertexConfidenceArray the internal confidence buffer for
-         * vertices can be set. The array has to be a vector of floats. 
+         * vertices can be set. The array has to be a vector of floats.
          *
          * \param array  Pointer to vertex confidence data.
          **/
@@ -447,7 +438,7 @@ class MeshBuffer
          *
          * This method is used to set the face index array. The array passed as
          * argument is a STL vector.  Each set of three integers specifies one
-         * face. 
+         * face.
          *
          * \param array  %Face index vector.
          **/
@@ -470,8 +461,6 @@ class MeshBuffer
         /**********************************************************************
          * INDEXED SETTER
          *********************************************************************/
-
-
 
         /**
          * \brief Set the vertex array.
@@ -505,20 +494,15 @@ class MeshBuffer
 
         void setIndexedVertexColorArray( color3bArr arr, size_t size );
 
-
         void setIndexedVertexTextureCoordinateArray( coord3fArr arr, size_t size );
 
-
         void setIndexedFaceArray( idx3uArr arr, size_t size );
-
 
 
 #define SECTION_INDEXED_VECTOR_SETTER
         /**********************************************************************
          * INDEXED VECTOR SETTER
          *********************************************************************/
-
-
 
         /**
          * \brief Set the vertex array.
@@ -533,8 +517,8 @@ class MeshBuffer
          * \param n      Amount of vertices in the array.
          **/
         void setIndexedVertexArray( std::vector< coord<float> >& array );
-        
-        
+
+
         /**
          * \brief Set the vertex normal array.
          *
@@ -549,7 +533,7 @@ class MeshBuffer
          **/
         void setIndexedVertexNormalArray( std::vector< coord<float> >&array);
 
-		void setLabeledFacesMap( labeledFacesMap* &map );
+        void setLabeledFacesMap( labeledFacesMap* &map );
 
         void setMaterialArray( std::vector<Material*> &array);
 
@@ -561,8 +545,6 @@ class MeshBuffer
         /**********************************************************************
          * THE OTHERS
          *********************************************************************/
-
-
 
         /**
          * \brief Clear internal vertex and face buffers.
@@ -621,17 +603,17 @@ class MeshBuffer
         /// Number of vertex texture coordinates
         size_t      m_numVertexTextureCoordinates;
 
-        size_t		m_numMaterials;
+        size_t    m_numMaterials;
 
-        size_t		m_numFaceMaterialIndices;
+        size_t    m_numFaceMaterialIndices;
 
-        size_t		m_numTextures;
+        size_t    m_numTextures;
 
         materialArr m_faceMaterials;
 
         labeledFacesMap m_labeledFacesMap;
 
-        textureArr	m_textures;
+        textureArr  m_textures;
 
 };
 

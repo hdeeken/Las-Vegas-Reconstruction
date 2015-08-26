@@ -18,7 +18,6 @@ include_directories(${LAS_VEGAS_SOURCE_DIR}/ext/kintinuous/kfusion/include)
 include_directories(${LAS_VEGAS_SOURCE_DIR})
 include_directories(${LAS_VEGAS_SOURCE_DIR}/include/liblvr)
 
-
 ##################################################################################
 # Some compiler specific settings
 ##################################################################################
@@ -117,13 +116,14 @@ endif(PCL_FOUND)
 
 find_package(CGAL)
 if(CGAL_FOUND)
+
 include(${CGAL_USE_FILE})
 add_definitions(${CGAL_CXX_FLAGS_INIT})
 include_directories(${CGAL_INCLUDE_DIRS})
 link_directories(${CGAL_LIBRARIES_DIR})
 message(STATUS "FOUND CGAL")
-endif(CGAL_FOUND)
 
+endif(CGAL_FOUND)
 
 ####
 ## Searching for Boost
@@ -242,7 +242,7 @@ include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/ext/slam6d )
 add_subdirectory(ext/slam6d)
 
 # KINTINUOUS
-add_subdirectory(ext/kintinuous)
+#add_subdirectory(ext/kintinuous)
 
 # Freenect
 #if(APPLE)

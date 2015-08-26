@@ -161,9 +161,10 @@ void HalfEdgeMesh<VertexT, NormalT>::addVertex(VertexT v)
 template<typename VertexT, typename NormalT>
 void HalfEdgeMesh<VertexT, NormalT>::addGiftVertex(VertexT v, bool& bullseye)
 {
-    // Create new HalfEdgeVertex and increase vertex counter
+  /*
+  // Create new HalfEdgeVertex and increase vertex counter
 	for(int i = 300000; i < m_vertices.size(); i++){
-		auto vertex  = m_vertices[i];
+		VertexT vertex  = m_vertices[i];
 		if(vertex->m_position[0] == v[0] && vertex->m_position[1] == v[1]  && vertex->m_position[2] == v[2]){
 			cout << "ICH BIN DOPPELT" << endl;
 			cout << "i: "  << i <<  endl;
@@ -174,6 +175,7 @@ void HalfEdgeMesh<VertexT, NormalT>::addGiftVertex(VertexT v, bool& bullseye)
 	}
     m_vertices.push_back(new HVertex(v));
     m_globalIndex++;
+    */
 }
 
 
@@ -1892,7 +1894,7 @@ void HalfEdgeMesh<VertexT, NormalT>::finalizeAndRetesselate( bool genTextures, f
             std::vector<float> points;
             std::vector<unsigned int> indices;
 
-            Tesselator<VertexT, NormalT>::getFinalizedTriangles(points, indices, contours);
+            Tesselator<VertexT, NormalT>::tesselateAndGetFinalizedTriangles(contours, points, indices);
 
             if( genTextures )
             {
@@ -2032,7 +2034,7 @@ void HalfEdgeMesh<VertexT, NormalT>::finalizeAndRetesselate( bool genTextures, f
     this->m_meshBuffer->setVertexTextureCoordinateArray( textureCoordBuffer );
     this->m_meshBuffer->setMaterialArray( materialBuffer );
     this->m_meshBuffer->setFaceMaterialIndexArray( materialIndexBuffer );
-	this->m_meshBuffer->setLabeledFacesMap( labeledFaces );
+    this->m_meshBuffer->setLabeledFacesMap( labeledFaces );
     this->m_finalized = true;
     cout << endl << timestamp << "Done retesselating." << endl;
 
@@ -2042,7 +2044,6 @@ void HalfEdgeMesh<VertexT, NormalT>::finalizeAndRetesselate( bool genTextures, f
     // Clean up
     delete texturizer;
     labeledFaces.clear();
-    Tesselator<VertexT, NormalT>::clear();
 } 
 
 
